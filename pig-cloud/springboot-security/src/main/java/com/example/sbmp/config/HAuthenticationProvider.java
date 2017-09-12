@@ -12,15 +12,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.example.sbmp.model.UserDetailsEntity;
-import com.example.sbmp.service.MyUserDetailsService;
+import com.example.sbmp.service.HUserDetailsService;
 
 /**
  *自定义用户验证类
  */
 @Component
-public class MyAuthenticationProvider implements AuthenticationProvider {
+public class HAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
-	private MyUserDetailsService userService;
+	private HUserDetailsService userService;
 
 	/**
 	 * 自定义验证方式

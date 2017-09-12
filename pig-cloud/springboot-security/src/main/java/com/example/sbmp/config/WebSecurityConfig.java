@@ -16,7 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
-	private MyAuthenticationProvider provider;//自定义验证
+	private HAuthenticationProvider provider;//自定义验证
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
