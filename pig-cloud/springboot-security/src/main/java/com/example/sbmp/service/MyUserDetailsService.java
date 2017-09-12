@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.sbmp.config.MyUserDetails;
 import com.example.sbmp.model.SystemUserEntity;
+import com.example.sbmp.model.UserDetailsEntity;
 import com.example.sbmp.model.UserRoleEntity;
 
 @Service
@@ -34,7 +34,7 @@ public class MyUserDetailsService implements UserDetailsService {
         } else {
             try {
                 List<UserRoleEntity> roles = userRoleService.getRoleByUser(user);
-                return new MyUserDetails(user, roles);
+                return new UserDetailsEntity(user, roles);
             } catch (Exception e) {
                 throw new UsernameNotFoundException("user role select fail");
             }

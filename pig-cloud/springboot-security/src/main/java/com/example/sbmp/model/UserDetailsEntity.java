@@ -1,32 +1,32 @@
-package com.example.sbmp.config;
+package com.example.sbmp.model;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.sbmp.model.SystemUserEntity;
-import com.example.sbmp.model.UserRoleEntity;
-
-public class MyUserDetails implements UserDetails {
+public class UserDetailsEntity implements UserDetails {
 	private static final long serialVersionUID = 1L;
+	
+	private Collection<? extends GrantedAuthority> roles;
 	private SystemUserEntity user;
-	private List<UserRoleEntity> roles;
+	//private List<UserRoleEntity> roles;
 
 	private String password;
 	private String username;
-	public MyUserDetails(SystemUserEntity user, List<UserRoleEntity> roles) {
+	public UserDetailsEntity(SystemUserEntity user,Collection<? extends GrantedAuthority> roles) {
 		super();
 		this.setUser(user);
 		this.password = user.getPassword();
 		this.setRoles(roles);
 	}
 
+	/**
+	 * 返回给用户的权限。不能返回零
+	 */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		return roles;
 	}
 
 	@Override
@@ -41,27 +41,35 @@ public class MyUserDetails implements UserDetails {
 		return username;
 	}
 
+	/**
+	 * 表示用户的帐户是否已过期。过期的帐户不能认证
+	 */
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * 表示用户是锁定还是解锁。无法通过身份验证的用户
+	 */
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * 表示用户的凭据(密码)是否已过期。过期的证书防止身份验证。
+	 */
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * 表示用户是否启用或禁用。不能通过身份验证的用户。
+	 */
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -73,11 +81,11 @@ public class MyUserDetails implements UserDetails {
 		this.user = user;
 	}
 
-	public List<UserRoleEntity> getRoles() {
+	public Collection<? extends GrantedAuthority> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<UserRoleEntity> roles) {
+	public void setRoles(Collection<? extends GrantedAuthority> roles) {
 		this.roles = roles;
 	}
 

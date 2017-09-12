@@ -11,6 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import com.example.sbmp.model.UserDetailsEntity;
 import com.example.sbmp.service.MyUserDetailsService;
 
 /**
@@ -28,7 +29,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = authentication.getName();
 		String password = (String) authentication.getCredentials();
-		MyUserDetails user = (MyUserDetails) userService.loadUserByUsername(username);
+		UserDetailsEntity user = (UserDetailsEntity) userService.loadUserByUsername(username);
 		if (user == null) {
 			throw new BadCredentialsException("Username not found.");
 		}
