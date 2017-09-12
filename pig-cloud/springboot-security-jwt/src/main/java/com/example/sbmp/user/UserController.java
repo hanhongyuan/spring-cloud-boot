@@ -21,39 +21,43 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getUsers() {
-        return repository.findAll();
+        return null;//repository.findAll();
     }
-
+    
+    @RequestMapping(value = "/testUser", method = RequestMethod.GET)
+    public User testUser() {
+        return new User();//repository.insert(addedUser);
+    }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     User addUser(@RequestBody User addedUser) {
-        return repository.insert(addedUser);
+        return new User();//repository.insert(addedUser);
     }
 
     @PostAuthorize("returnObject.username == principal.username or hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable String id) {
-        return repository.findOne(id);
+        return new User();//repository.findOne(id);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         updatedUser.setId(id);
-        return repository.save(updatedUser);
+        return new User();//repository.save(updatedUser);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     User removeUser(@PathVariable String id) {
-        User deletedUser = repository.findOne(id);
-        repository.delete(id);
-        return deletedUser;
+        //User deletedUser = repository.findOne(id);
+        //repository.delete(id);
+        return new User();//deletedUser;
     }
 
     @PostAuthorize("returnObject.username == principal.username or hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public User getUserByUsername(@RequestParam(value = "username") String username) {
-        return repository.findByUsername(username);
+        return new User();// repository.findByUsername(username);
     }
 }
