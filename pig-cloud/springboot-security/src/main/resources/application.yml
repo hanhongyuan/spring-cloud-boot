@@ -6,4 +6,6 @@ spring:
 
 logging:
   config: classpath:logback.xml
+security:
+  sessions: stateless
 

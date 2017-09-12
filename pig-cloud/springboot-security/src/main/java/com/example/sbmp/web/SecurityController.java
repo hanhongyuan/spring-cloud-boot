@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author lengleng
  * @since 2017-08-19
  */
-@SuppressWarnings("unused")
 @Controller
 public class SecurityController {
     @RequestMapping("/login")
