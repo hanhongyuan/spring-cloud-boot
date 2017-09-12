@@ -67,6 +67,7 @@ public class JwtTokenUtil implements Serializable {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
+        	e.printStackTrace();
             claims = null;
         }
         return claims;
@@ -123,10 +124,10 @@ public class JwtTokenUtil implements Serializable {
         final String username = getUsernameFromToken(token);
         final Date created = getCreatedDateFromToken(token);
         //final Date expiration = getExpirationDateFromToken(token);
-        return (
-                username.equals(user.getUsername())
-                        && !isTokenExpired(token)
-                        && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
+        Boolean usernameB = username.equals(user.getUsername());
+        Boolean tokenB = !isTokenExpired(token);
+        Boolean timeB = true;//!isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate());
+        return (usernameB && tokenB && timeB );
     }
 }
 

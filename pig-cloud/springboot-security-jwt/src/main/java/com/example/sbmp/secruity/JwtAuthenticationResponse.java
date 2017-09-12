@@ -2,6 +2,9 @@ package com.example.sbmp.secruity;
 
 import java.io.Serializable;
 
+/**
+ * token实体
+ */
 public class JwtAuthenticationResponse implements Serializable {
     private static final long serialVersionUID = 1250166508152483573L;
 

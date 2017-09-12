@@ -30,6 +30,7 @@ public class HAuthenticationProvider implements AuthenticationProvider {
 		String username = authentication.getName();
 		String password = (String) authentication.getCredentials();
 		UserDetailsEntity user = (UserDetailsEntity) userService.loadUserByUsername(username);
+//		user.setRoles("USER");
 		if (user == null) {
 			throw new BadCredentialsException("Username not found.");
 		}

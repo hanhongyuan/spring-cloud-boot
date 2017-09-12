@@ -22,12 +22,14 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    /**
+     * 获取token
+     * @return token
+     */
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException{
         final String token = authService.login(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
-        // Return the token
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 
