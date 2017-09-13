@@ -13,7 +13,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka.didispace.com/eureka/
+      defaultZone: http://eureka-primary:1111/eureka/,http://eureka-secondary:1112/eureka/,http://eureka-tertiary:1113/eureka/
 
 logging:
   config: classpath:logback.xml
