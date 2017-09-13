@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/jieblog/config-repo-demo-.git
+          uri: https://github.com/han895268684long/config.git
 
 logging:
   config: classpath:logback.xml

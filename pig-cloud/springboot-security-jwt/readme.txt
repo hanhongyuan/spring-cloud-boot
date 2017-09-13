@@ -1,4 +1,5 @@
 spring boot 和 springboot-security 、jwt 整合
+通过token认证
 获取token
 	POST 
 

@@ -1,15 +1,9 @@
 spring:
-  profiles:
-    active: server
   redis:
     host: localhost
     port: 6379
-    password: redis
-  session:
-    store-type:
-  thymeleaf:
-    cache: false
-
+server:
+  port: 8080
 logging:
   config: classpath:logback.xml
 
