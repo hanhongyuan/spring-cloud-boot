@@ -3,20 +3,12 @@ package com.example.sbmp.entity;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import java.util.List;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author lengleng
- * @since 2017-08-19
- */
 @TableName("biz_user")
 public class BizUser extends Model<BizUser> {
 
@@ -24,8 +16,11 @@ public class BizUser extends Model<BizUser> {
 
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
+	@TableField(value = "username")
 	private String username;
+	@TableField(value = "password")
 	private String password;
+	@TableField(exist = false)
 	private List<BizScore> scoreList;
 
 

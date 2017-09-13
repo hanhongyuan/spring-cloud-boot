@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class BizUserServiceImpl extends ServiceImpl<BizUserMapper, BizUser> implements IBizUserService {
     public List<BizUser> findUserAndScoreById() {
-        baseMapper.findUserAndScoreById();
-        return baseMapper.findUserAndScoreById();
+    	List<BizUser> list = baseMapper.findUserAndScoreById();
+        return list;
     }
 }
