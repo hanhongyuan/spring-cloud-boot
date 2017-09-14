@@ -15,70 +15,61 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@SuppressWarnings("SpringJavaAutowiringInspection")
+/**
+ *自定义security的web授权
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
+	@Autowired
+	private JwtAuthenticationEntryPoint unauthorizedHandler;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
-    @Autowired
-    public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder
-                .userDetailsService(this.userDetailsService)
-                .passwordEncoder(passwordEncoder());
-    }
+	@Autowired
+	public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+		authenticationManagerBuilder.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
-        return new JwtAuthenticationTokenFilter();
-    }
+	@Bean
+	public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
+		return new JwtAuthenticationTokenFilter();
+	}
 
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                // 由于使用的是JWT，我们这里不需要csrf
-                .csrf().disable()
+	@Override
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity
+				// 由于使用的是JWT，我们这里不需要csrf
+				.csrf().disable()
+				//异常处理
+				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+				// 基于token，所以不需要session
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 
-                // 基于token，所以不需要session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.authorizeRequests()
+				// .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                .authorizeRequests()
-                //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+				// 允许对于网站静态资源的无授权访问
+				.antMatchers(HttpMethod.GET, "/", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**/*.js")
+				.permitAll()
+				// 对于获取token的rest api要允许匿名访问
+				.antMatchers("/auth/**").permitAll()
+				// 除上面外的所有请求全部需要鉴权认证
+				.anyRequest().authenticated();
 
-                // 允许对于网站静态资源的无授权访问
-                .antMatchers(
-                        HttpMethod.GET,
-                        "/",
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js"
-                ).permitAll()
-                // 对于获取token的rest api要允许匿名访问
-                .antMatchers("/gateway-api-zuul/auth/**").permitAll()
-                .antMatchers("/auth/**").permitAll()
-                // 除上面外的所有请求全部需要鉴权认证
-                .anyRequest().authenticated();
+		// 添加JWT filter
+		httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
-        // 添加JWT filter
-        httpSecurity
-                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-
-        // 禁用缓存
-        httpSecurity.headers().cacheControl();
-    }
+		// 禁用缓存
+		httpSecurity.headers().cacheControl();
+	}
 }

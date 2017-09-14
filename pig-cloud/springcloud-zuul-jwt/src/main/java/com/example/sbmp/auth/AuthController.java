@@ -1,7 +1,7 @@
 package com.example.sbmp.auth;
 
-import com.example.sbmp.secruity.JwtAuthenticationRequest;
-import com.example.sbmp.secruity.JwtAuthenticationResponse;
+import com.example.sbmp.secruity.entity.JwtAuthenticationRequest;
+import com.example.sbmp.secruity.entity.JwtAuthenticationResponse;
 import com.example.sbmp.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +26,6 @@ public class AuthController {
     public ResponseEntity<?> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException{
         final String token = authService.login(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
-        // Return the token
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 

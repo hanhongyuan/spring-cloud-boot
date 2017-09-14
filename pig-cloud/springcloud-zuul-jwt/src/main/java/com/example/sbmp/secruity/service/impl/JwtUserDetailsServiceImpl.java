@@ -1,5 +1,6 @@
-package com.example.sbmp.secruity;
+package com.example.sbmp.secruity.service.impl;
 
+import com.example.sbmp.secruity.utils.JwtUserFactory;
 import com.example.sbmp.user.User;
 import com.example.sbmp.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

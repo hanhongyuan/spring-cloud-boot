@@ -1,4 +1,4 @@
-package com.example.sbmp.secruity;
+package com.example.sbmp.secruity.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -6,6 +6,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.example.sbmp.secruity.entity.JwtUserEntity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -67,6 +69,7 @@ public class JwtTokenUtil implements Serializable {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
+        	e.printStackTrace();
             claims = null;
         }
         return claims;
@@ -119,14 +122,14 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        JwtUser user = (JwtUser) userDetails;
+        JwtUserEntity user = (JwtUserEntity) userDetails;
         final String username = getUsernameFromToken(token);
         final Date created = getCreatedDateFromToken(token);
         //final Date expiration = getExpirationDateFromToken(token);
-        return (
-                username.equals(user.getUsername())
-                        && !isTokenExpired(token)
-                        && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
+        Boolean usernameB = username.equals(user.getUsername());
+        Boolean tokenB = !isTokenExpired(token);
+        Boolean timeB = true;//!isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate());
+        return (usernameB && tokenB && timeB );
     }
 }
 

@@ -1,7 +1,10 @@
-package com.example.sbmp.secruity;
+package com.example.sbmp.secruity.entity;
 
 import java.io.Serializable;
 
+/**
+ * 请求实体
+ */
 public class  JwtAuthenticationRequest implements Serializable {
 
     private static final long serialVersionUID = -8445943548965154778L;
