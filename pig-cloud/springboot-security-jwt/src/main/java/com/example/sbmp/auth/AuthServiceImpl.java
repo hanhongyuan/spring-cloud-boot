@@ -1,7 +1,7 @@
 package com.example.sbmp.auth;
 
-import com.example.sbmp.secruity.JwtTokenUtil;
-import com.example.sbmp.secruity.JwtUser;
+import com.example.sbmp.secruity.entity.JwtUserEntity;
+import com.example.sbmp.secruity.utils.JwtTokenUtil;
 import com.example.sbmp.user.User;
 import com.example.sbmp.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Reload password post-security so we can generate token
-        final UserDetails userDetails = new JwtUser("id", username, password, "email", null, new Date(System.currentTimeMillis() + 10000000));
+        final UserDetails userDetails = new JwtUserEntity("id", username, password, "email", null, new Date(System.currentTimeMillis() + 10000000));
         		new UserDetailsService() {
 			
 			@Override
@@ -132,7 +132,7 @@ public class AuthServiceImpl implements AuthService {
     public String refresh(String oldToken) {
         final String token = oldToken.substring(tokenHead.length());
         String username = jwtTokenUtil.getUsernameFromToken(token);
-        JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
+        JwtUserEntity user = (JwtUserEntity) userDetailsService.loadUserByUsername(username);
         if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())){
             return jwtTokenUtil.refreshToken(token);
         }

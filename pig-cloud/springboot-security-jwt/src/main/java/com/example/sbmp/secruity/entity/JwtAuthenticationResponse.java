@@ -1,4 +1,4 @@
-package com.example.sbmp.secruity;
+package com.example.sbmp.secruity.entity;
 
 import java.io.Serializable;
 

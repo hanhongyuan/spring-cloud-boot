@@ -1,4 +1,4 @@
-package com.example.sbmp.secruity;
+package com.example.sbmp.secruity.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  *用户实体
  */
-public class JwtUser implements UserDetails {
+public class JwtUserEntity implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	private final String id;
     private final String username;
@@ -21,7 +21,7 @@ public class JwtUser implements UserDetails {
     private Boolean accountNonLocked = false;
     private Boolean credentialsNonExpired = false;
     private Boolean enabled = false;
-    public JwtUser(
+    public JwtUserEntity(
             String id,
             String username,
             String password,
