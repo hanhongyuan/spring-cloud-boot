@@ -4,14 +4,14 @@ spring:
 
 server:
   port: 7777
-  context-path: /uaa
+  context-path: /uaa #配置路径前缀
 security:
   sessions: stateless
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka.didispace.com/eureka/
+      defaultZone: http://admin:admin@eureka-primary:1111/eureka/,http://admin:admin@eureka-secondary:1112/eureka/,http://admin:admin@eureka-tertiary:1113/eureka/
 
 logging:
   config: classpath:logback.xml

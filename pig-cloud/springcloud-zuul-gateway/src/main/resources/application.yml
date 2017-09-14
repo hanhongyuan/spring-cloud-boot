@@ -12,14 +12,28 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka-primary:1111/eureka/,http://eureka-secondary:1112/eureka/,http://eureka-tertiary:1113/eureka/
+      defaultZone: http://admin:admin@eureka-primary:1111/eureka/,http://admin:admin@eureka-secondary:1112/eureka/,http://admin:admin@eureka-tertiary:1113/eureka/
 
+#zuul:
+#  ignored-services: '*'
+#  routes:
+#    auth-server:
+#      path: /demo/**
+#      serviceId: PROVIDER-SERVICE
 zuul:
-  ignored-services: '*'
+  ignored-services: '*'  # 需要忽视的服务(配置后将不会被路由)但是对于明确配置在路由匹配中的, 将不会被忽略
   routes:
-    auth-server:
-      path: /demo/**
-      serviceId: PROVIDER-SERVICE
+    api-a:
+      path: /one/**
+      serviceId: PROVIDER-SERVICE-ONE
+      #sensitiveHeaders:
+      strip-prefix: false
+
+    api-b:    # 可以随便写，在zuul上面唯一即可；当这里的值 = service-id时，service-id可以不写。
+      path: /two/**  # 想要映射到的路径
+      serviceId: PROVIDER-SERVICE-TWO # Eureka中的serviceId
+      #sensitiveHeaders: #Cookie,Set-Cookie,Authorization 敏感headers也支持全局设置 zuul.sensitiveHeaders. 如果在单个路由中设置 sensitiveHeaders 会覆盖全局 sensitiveHeaders 设置.
+      strip-prefix: false #给所有映射添加前缀，可以设置 zuul.prefix 一个值，比如/api。这个前缀默认会删除，在请求跳转之前。（通过 zuul.stripPrefix=false 可以关闭这个功能）。
 
 # 上传大文件得将超时时间设置长一些，否则会报超时异常。以下几行超时设置来自http://cloud.spring.io/spring-cloud-static/Camden.SR3/#_uploading_files_through_zuul
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000

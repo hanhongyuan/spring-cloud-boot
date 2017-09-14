@@ -13,14 +13,14 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 /**
- * @email wangiegie@gmail.com
- * @data 2017-08
+ * 当故障发生在线路上时，提供回退
  */
 @Component
 public class MyZuulFallbackProvider implements ZuulFallbackProvider {
     @Override
     public String getRoute() {
-        return "PROVIDER-SERVICE";
+    	System.out.println("FFF");
+        return "*";//远程的服务，如果需要所有远程服务都支持回退，则这边应 return “*” 或者return null
     }
 
     @Override

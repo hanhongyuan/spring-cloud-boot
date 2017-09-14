@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @email wangiegie@gmail.com
- * @data 2017-08
+ * 用于zuul滤波器的基础抽象类。基类定义了定义的抽象方法:
  */
 @Component
 public class ErrorFilter extends ZuulFilter {

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
   context-path: /one
 
 spring:
@@ -11,6 +11,8 @@ spring:
       max-request-size: 1000MB
 
 eureka:
+#  instance:
+#    appname: PROVIDER-SERVICE-ONE-1
   client:
     service-url:
       defaultZone: http://admin:admin@eureka-primary:1111/eureka/,http://admin:admin@eureka-secondary:1112/eureka/,http://admin:admin@eureka-tertiary:1113/eureka/

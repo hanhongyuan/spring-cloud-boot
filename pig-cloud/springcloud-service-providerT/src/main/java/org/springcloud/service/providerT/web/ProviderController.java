@@ -1,4 +1,4 @@
-package com.example.sbmp.web;
+package org.springcloud.service.providerT.web;
 
 
 import org.springframework.util.FileCopyUtils;
@@ -25,7 +25,7 @@ public class ProviderController {
     @GetMapping("/test")
     public String test() {
 //        int i = 1/ 0;
-        return "PROVIDER-server1";
+        return "PROVIDER-server2";
     }
 
     @RequestMapping(value = "/upload",method = RequestMethod.POST)

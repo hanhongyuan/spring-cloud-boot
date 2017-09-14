@@ -1,7 +1,6 @@
 package com.example.sbmp.service;
 
 import com.example.sbmp.domain.User;
-import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,7 +22,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         user.setUsername("123");
         user.setPassword("456");
         return new UserDetails() {
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
                 GrantedAuthority grantedAuthority = (GrantedAuthority) () -> "admin";
                 List<GrantedAuthority> grantedAuthorities = new ArrayList<>();

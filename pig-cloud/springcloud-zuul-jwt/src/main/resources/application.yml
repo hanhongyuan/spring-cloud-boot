@@ -17,6 +17,20 @@ eureka:
     serviceUrl:
       defaultZone: http://eureka-primary:1111/eureka/,http://eureka-secondary:1112/eureka/,http://eureka-tertiary:1113/eureka/
 
+zuul:
+  ignored-services: '*'
+  routes:
+    PROVIDER-SERVICE-ONE:
+      path: /one/**
+      serviceId: PROVIDER-SERVICE-ONE
+      #sensitiveHeaders:
+      strip-prefix: false
+
+    PROVIDER-SERVICE-TWO:
+      path: /two/**
+      serviceId: PROVIDER-SERVICE-TWO
+      #sensitiveHeaders: #Cookie,Set-Cookie,Authorization 敏感headers也支持全局设置 zuul.sensitiveHeaders. 如果在单个路由中设置 sensitiveHeaders 会覆盖全局 sensitiveHeaders 设置.
+      strip-prefix: false #给所有映射添加前缀，可以设置 zuul.prefix 一个值，比如/api。这个前缀默认会删除，在请求跳转之前。（通过 zuul.stripPrefix=false 可以关闭这个功能）。
 
 jwt:
   header: Authorization

@@ -48,6 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
     	 //将验证过程交给自定义验证工具
         auth.authenticationProvider(provider);
-        //auth.inMemoryAuthentication().withUser("user").password("root").roles("USER");
+        auth.inMemoryAuthentication().withUser("user").password("root").roles("USER");
     }
 }
