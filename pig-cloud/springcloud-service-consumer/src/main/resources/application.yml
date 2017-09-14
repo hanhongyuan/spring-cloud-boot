@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 9081
 
 spring:
   application:
@@ -8,7 +8,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka.didispace.com/eureka/
+      defaultZone: http://admin:admin@eureka-primary:1111/eureka/,http://admin:admin@eureka-secondary:1112/eureka/,http://admin:admin@eureka-tertiary:1113/eureka/
 
 logging:
   config: classpath:logback.xml
